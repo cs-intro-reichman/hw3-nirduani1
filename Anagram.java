@@ -28,22 +28,62 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+		str1 = preProcess(str1) ;
+		str2 = preProcess(str2) ;
+		boolean statement = false ;
+		int counter = 0 ;
+		if (str1.length() != str2.length()){
+			statement = false ;
+		}
+		else if (str1.length() == str2.length()){
+			for (int i = 0 ; i < str1.length() ; i++){
+				for (int j = 0 ; j < str2.length() ; j ++){
+					if (str1.charAt(i) == str2.charAt(j)){
+						counter ++ ;
+						str2 = str2.substring(0,j) + str2.substring(j + 1) ;
+						break ;
+					}
+				}
+			}
+			if (counter == str1.length()){
+				statement = true ;
+			}			
+		}
+		return statement ; 
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
+		String fixedString = "" ;
+
+		for(int i = 0 ; i < str.length() ; i++){
+		    char ch = str.charAt(i) ;		
+			if ((ch >= 65)&&(ch <= 90)){
+				ch = (char)(ch + 32) ;
+				fixedString = fixedString + ch ;
+			}
+			else if ((ch >= 97)&&(ch <= 122)){
+				fixedString = fixedString + ch ;
+			}
+		}
+		return fixedString ;
 	} 
+
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
+		String randomString = "" ;
+		int randomIndex ;
+		int lengthOg = str.length() ;
+		do{
+			randomIndex = (int)(Math.random() * str.length()) ;
+			randomString = randomString + str.charAt(randomIndex) ;	
+			str = str.substring(0, randomIndex) +str.substring(randomIndex + 1) ;
+		} while (randomString.length() < lengthOg) ;
+		return randomString;
 	}
 }
+
